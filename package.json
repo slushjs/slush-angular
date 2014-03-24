@@ -1,0 +1,36 @@
+{
+  "name": "slush-angular",
+  "version": "0.1.0",
+  "description": "A slush generator for AngularJS using the Google Angular App Structure Recommendations",
+  "main": "slushfile.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/klei/slush-angular"
+  },
+  "keywords": [
+    "slushgenerator",
+    "angular",
+    "angularjs",
+    "google",
+    "stylus",
+    "less"
+  ],
+  "author": "Joakim Bengtson <joakim@klei.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klei/slush-angular/issues"
+  },
+  "homepage": "https://github.com/klei/slush-angular",
+  "dependencies": {
+    "gulp": "~3.5.6",
+    "gulp-template": "~0.1.1",
+    "gulp-install": "~0.1.1",
+    "gulp-conflict": "~0.1.1",
+    "underscore.string": "~2.3.3",
+    "gulp-rename": "~1.2.0",
+    "inquirer": "~0.4.1"
+  }
+}
