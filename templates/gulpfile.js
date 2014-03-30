@@ -4,9 +4,7 @@
 var gulp = require('gulp'),
     g = require('gulp-load-plugins')({lazy: false}),
     noop = g.util.noop,
-    dirname = require('path').dirname,
     es = require('event-stream'),
-    sort = require('sort-stream'),
     queue = require('streamqueue'),
     lazypipe = require('lazypipe'),
     stylish = require('jshint-stylish'),
@@ -102,7 +100,7 @@ function index () {
   var opt = {read: false};
   return gulp.src('./src/app/index.html')
     .pipe(g.inject(g.bowerFiles(opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
-    .pipe(g.inject(es.merge(appFiles(opt), cssFiles(opt)), {ignorePath: ['.tmp', 'src/app']}))
+    .pipe(g.inject(es.merge(appFiles(), cssFiles(opt)), {ignorePath: ['.tmp', 'src/app']}))
     .pipe(gulp.dest('./src/app/'))
     .pipe(g.embedlr())
     .pipe(gulp.dest('./.tmp/'))
@@ -172,7 +170,8 @@ gulp.task('test', ['templates'], function () {
   return new queue({objectMode: true})
     .queue(g.bowerFiles().pipe(g.filter('**/*.js')))
     .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
-    .queue(appFiles({includeTests: true}))
+    .queue(appFiles())
+    .queue(gulp.src('./src/app/**/*_test.js'))
     .done()
     .pipe(g.karma({
       configFile: 'karma.conf.js',
@@ -190,29 +189,14 @@ function cssFiles (opt) {
 /**
  * All AngularJS application files as a stream
  */
-function appFiles (opt) {
+function appFiles () {
   var files = [
     './.tmp/' + bower.name + '-templates.js',
-    './src/app/**/*.js'
+    './src/app/**/*.js',
+    '!./src/app/**/*_test.js'
   ];
-  opt = opt || {};
-  if (!opt.includeTests) {
-    files.push('!./src/app/**/*_test.js');
-  }
-  return gulp.src(files, opt)
-    .pipe(sort(function (a, b) {
-      if (dirname(a.path) === dirname(b.path)) {
-        var aDashes = a.path.split('-').length,
-            bDashes = b.path.split('-').length;
-        // Sort by number of dashes in name if in same dir and the files don't have equal number of dashes.
-        // To follow Google AngularJS naming recommendations. (e.g. todo.js must come before todo-controller.js)
-        if (aDashes !== bDashes) {
-          return aDashes - bDashes;
-        }
-      }
-      // Otherwise, sort by alphabetical order:
-      return a.path.localeCompare(b.path);
-    }));
+  return gulp.src(files)
+    .pipe(g.angularFilesort());
 }
 
 /**
