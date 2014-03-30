@@ -49,6 +49,7 @@ The project structure with the Todo list example included will look like this:
 
 ```
 my-angular-app/
+├── .bowerrc
 ├── .csslintrc
 ├── .editorconfig
 ├── .gitignore
@@ -63,8 +64,8 @@ my-angular-app/
         ├── app.js                          # Main app module and configuration
         ├── app.styl  or  app.less          # Main app stylesheet
         ├── index.html                      # The index.html / app layout template
-        ├── assets
-        │   └── .gitkeep                    # A folder meant for images and such...
+        ├── assets                          # A folder meant for images and such...
+        │   └── .gitkeep
         ├── styles
         │   └── _base.styl  or  _base.less  # A stylesheet partial with base styles
         └── todo
@@ -107,6 +108,18 @@ gulp dist
 
 Now you have a `./dist` folder with all your scripts and stylesheets concatenated and minified, also third party libraries installed with bower will be concatenated and minified into `vendors.min.js` and `vendors.min.css` respectively.
 
+## Changelog
+
+### V.0.2
+
+**0.2.0**:
+
+- Using `gulp-angular-filesort` to sort app files correctly on injection/concatenation
+- Adding `.bowerrc` (see [#1](https://github.com/klei/slush-angular/pull/1))
+
+### V.0.1
+
+**0.1.0** - First version
 
 ## License
 
