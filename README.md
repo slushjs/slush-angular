@@ -37,9 +37,9 @@ You will now be prompted to give your new AngularJS app a name, which will be da
 
 ### CSS Preprocessor
 
-You can choose between `LESS` and `Stylus` to use as the CSS Preprocessor for your project.
+You can choose between `LESS`, `Stylus`, and `Sass` to use as the CSS Preprocessor for your project.
 
-*Note* All `_*.styl` or `_*.less` files will be considered "partials" and must be imported in another stylesheet file (without a leading "_") to be compiled.
+*Note* All `_*.styl`, `_*.less`, or `_*.scss` files will be considered "partials" and must be imported in another stylesheet file (without a leading "_") to be compiled.
 
 ### Project structure
 
@@ -62,18 +62,18 @@ my-angular-app/
 └── src
     └── app
         ├── app.js                          # Main app module and configuration
-        ├── app.styl  or  app.less          # Main app stylesheet
+        ├── app.styl/less/scss              # Main app stylesheet
         ├── index.html                      # The index.html / app layout template
         ├── assets                          # A folder meant for images and such...
         │   └── .gitkeep
         ├── styles
-        │   └── _base.styl  or  _base.less  # A stylesheet partial with base styles
+        │   └── _base.styl/less/scss        # A stylesheet partial with base styles
         └── todo
             ├── todo-controller.js          # The todo controller
             ├── todo-controller_test.js     # Karma test for the todo controller
             ├── todo.html                   # The todo list template
             ├── todo.js                     # The todo module
-            └── todo.styl  or  todo.less    # Todo module specific styles
+            └── todo.styl/less/scss         # Todo module specific styles
 ```
 
 ### Gulpfile
