@@ -110,6 +110,13 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ## Changelog
 
+### V.0.3
+
+**0.3.0**:
+
+- Adding Sass as CSS preprocessor alternative (Thanks to [@ajoslin](https://github.com/ajoslin)'s PR[#2](https://github.com/klei/slush-angular/pull/2))
+- Adding `.tmp/` to the generated project's .gitignore ([#3](https://github.com/klei/slush-angular/pull/3))
+
 ### V.0.2
 
 **0.2.0**:
