@@ -129,7 +129,10 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
 /**
  * Static file server
  */
-gulp.task('statics', g.serve({root: ['./.tmp', './src/app', './bower_components']}));
+gulp.task('statics', g.serve({
+  port: 3000,
+  root: ['./.tmp', './src/app', './bower_components']
+}));
 
 /**
  * Watch
