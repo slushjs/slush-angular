@@ -112,6 +112,12 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ### V.0.3
 
+**0.3.1**:
+
+- Explicitly set port 3000 ([#4](https://github.com/klei/slush-angular/pull/4))
+- Remove bad output in console
+- Update gulp to `3.6.1`
+
 **0.3.0**:
 
 - Adding Sass as CSS preprocessor alternative (Thanks to [@ajoslin](https://github.com/ajoslin)'s PR[#2](https://github.com/klei/slush-angular/pull/2))
