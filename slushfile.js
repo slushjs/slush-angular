@@ -31,8 +31,8 @@ gulp.task('default', function (done) {
   inquirer.prompt([
     {type: 'input', name: 'name', message: 'What do you want to name your AngularJS app?', default: getNameProposal()},
     {type: 'list', name: 'csstype', message: 'What CSS preprocessor do you want to use?', default: 'styl', choices: [
-      {name: 'Stylus', value: 'styl'}, 
-      {name: 'LESS', value: 'less'}, 
+      {name: 'Stylus', value: 'styl'},
+      {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
     ]},
     {type: 'confirm', name: 'example', message: 'Do you want to include a Todo List example in your app?', default: true}
