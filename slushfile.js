@@ -22,7 +22,7 @@ var cssTypeData = {
   'styl': {
     plugin: 'gulp-stylus',
     pluginVersion: '^0.1.0',
-    pipeCommand: 'g.stylus({ use: ["nib"] })',
+    pipeCommand: 'g.stylus({use: [\'nib\']})',
     extension: 'styl'
   }
 };
