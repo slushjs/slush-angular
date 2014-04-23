@@ -1,6 +1,6 @@
 {
   "name": "slush-angular",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A slush generator for AngularJS using the Google Angular App Structure Recommendations",
   "main": "slushfile.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "angularjs",
     "google",
     "stylus",
-    "less"
+    "less",
+    "sass"
   ],
   "author": "Joakim Bengtson <joakim@klei.se>",
   "license": "MIT",

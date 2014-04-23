@@ -112,6 +112,10 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ### V.0.3
 
+**0.3.2**:
+
+- Fixing jshint errors in newly generated angular app with stylus as CSS preprocessor
+
 **0.3.1**:
 
 - Explicitly set port 3000 ([#4](https://github.com/klei/slush-angular/pull/4))
