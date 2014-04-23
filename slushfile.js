@@ -45,7 +45,6 @@ gulp.task('default', function (done) {
       files.push('!' + __dirname + '/templates/src/app/todo/**');
     }
     answers.styleData = cssTypeData[answers.csstype];
-    console.log(answers.styleData, answers.csstype);
     return gulp.src(files)
       .pipe(template(answers))
       .pipe(rename(function (file) {
