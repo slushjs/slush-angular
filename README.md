@@ -112,6 +112,10 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ### V.0.3
 
+**0.3.3**:
+
+- Adding the `gulp karma-conf` task to be able to run `karma` without gulp ([#7](https://github.com/klei/slush-angular/issues/7))
+
 **0.3.2**:
 
 - Fixing jshint errors in newly generated angular app with stylus as CSS preprocessor
