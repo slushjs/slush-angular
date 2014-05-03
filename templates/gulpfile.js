@@ -129,7 +129,10 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
 /**
  * Static file server
  */
-gulp.task('statics', g.serve({root: ['./.tmp', './src/app', './bower_components']}));
+gulp.task('statics', g.serve({
+  port: 3000,
+  root: ['./.tmp', './src/app', './bower_components']
+}));
 
 /**
  * Watch
@@ -167,17 +170,41 @@ gulp.task('lint', ['jshint', 'csslint']);
  * Test
  */
 gulp.task('test', ['templates'], function () {
-  return new queue({objectMode: true})
-    .queue(g.bowerFiles().pipe(g.filter('**/*.js')))
-    .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
-    .queue(appFiles())
-    .queue(gulp.src('./src/app/**/*_test.js'))
-    .done()
+  return testFiles()
     .pipe(g.karma({
       configFile: 'karma.conf.js',
       action: 'run'
     }));
 });
+
+/**
+ * Inject all files for tests into karma.conf.js
+ * to be able to run `karma` without gulp.
+ */
+gulp.task('karma-conf', ['templates'], function () {
+  return gulp.src('./karma.conf.js')
+    .pipe(g.inject(testFiles(), {
+      starttag: 'files: [',
+      endtag: ']',
+      addRootSlash: false,
+      transform: function (filepath, file, i, length) {
+        return '  \'' + filepath + '\'' + (i + 1 < length ? ',' : '');
+      }
+    }))
+    .pipe(gulp.dest('./'));
+});
+
+/**
+ * Test files
+ */
+function testFiles() {
+  return new queue({objectMode: true})
+    .queue(g.bowerFiles().pipe(g.filter('**/*.js')))
+    .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
+    .queue(appFiles())
+    .queue(gulp.src('./src/app/**/*_test.js'))
+    .done();
+}
 
 /**
  * All CSS files as a stream

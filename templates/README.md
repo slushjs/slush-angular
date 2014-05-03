@@ -21,6 +21,18 @@ To run tests run:
 gulp test
 ```
 
+**Or** first inject all test files into `karma.conf.js` with:
+
+```bash
+gulp karma-conf
+```
+
+Then you're able to run Karma directly. Example:
+
+```bash
+karma start --single-run
+```
+
 ## Production ready build - a.k.a. dist
 
 To make the app ready for deploy to production run:

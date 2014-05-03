@@ -22,7 +22,7 @@ var cssTypeData = {
   'styl': {
     plugin: 'gulp-stylus',
     pluginVersion: '^0.1.0',
-    pipeCommand: 'g.stylus({ use: ["nib"] })',
+    pipeCommand: 'g.stylus({use: [\'nib\']})',
     extension: 'styl'
   }
 };
@@ -31,8 +31,8 @@ gulp.task('default', function (done) {
   inquirer.prompt([
     {type: 'input', name: 'name', message: 'What do you want to name your AngularJS app?', default: getNameProposal()},
     {type: 'list', name: 'csstype', message: 'What CSS preprocessor do you want to use?', default: 'styl', choices: [
-      {name: 'Stylus', value: 'styl'}, 
-      {name: 'LESS', value: 'less'}, 
+      {name: 'Stylus', value: 'styl'},
+      {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
     ]},
     {type: 'confirm', name: 'example', message: 'Do you want to include a Todo List example in your app?', default: true}
@@ -45,7 +45,6 @@ gulp.task('default', function (done) {
       files.push('!' + __dirname + '/templates/src/app/todo/**');
     }
     answers.styleData = cssTypeData[answers.csstype];
-    console.log(answers.styleData, answers.csstype);
     return gulp.src(files)
       .pipe(template(answers))
       .pipe(rename(function (file) {

@@ -8,6 +8,12 @@ module.exports = function ( karma ) {
      */
     basePath: './',
 
+    /**
+     * Filled by the task `gulp karma-conf`
+     */
+    files: [
+    ],
+
     frameworks: [ 'mocha', 'chai' ],
     plugins: [ 'karma-mocha', 'karma-chai', 'karma-phantomjs-launcher' ],
 
