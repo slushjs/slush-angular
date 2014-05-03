@@ -32,5 +32,9 @@
     "underscore.string": "~2.3.3",
     "gulp-rename": "~1.2.0",
     "inquirer": "~0.4.1"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
   }
 }
