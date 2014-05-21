@@ -60,7 +60,18 @@ gulp.task('csslint', ['styles'], function () {
     .pipe(g.csslint('./.csslintrc'))
     .pipe(g.csslint.reporter());
 });
-
+<% if(coffee) { %>
+/**
+ * CoffeeScript
+ */
+gulp.task('coffee', function () {
+  return gulp.src([
+    './src/app/**/*.coffee'
+  ])
+    .pipe(g.coffee())
+    .pipe(gulp.dest('./.tmp/src/app'));
+});
+<% } %>
 /**
  * Scripts
  */
@@ -94,7 +105,7 @@ gulp.task('vendors', function () {
  * Index
  */
 gulp.task('index', index);
-gulp.task('build-all', ['styles', 'templates'], index);
+gulp.task('build-all', ['styles', 'templates'<%if(coffee){%>, 'coffee'<%}%>], index);
 
 function index () {
   var opt = {read: false};
@@ -131,7 +142,7 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
  */
 gulp.task('statics', g.serve({
   port: 3000,
-  root: ['./.tmp', './src/app', './bower_components']
+  root: ['./.tmp', './.tmp/src/app', './src/app', './bower_components']
 }));
 
 /**
@@ -202,7 +213,7 @@ function testFiles() {
     .queue(g.bowerFiles().pipe(g.filter('**/*.js')))
     .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
     .queue(appFiles())
-    .queue(gulp.src('./src/app/**/*_test.js'))
+    .queue(gulp.src(['./src/app/**/*_test.js', './.tmp/src/app/**/*_test.js']))
     .done();
 }
 
@@ -219,6 +230,8 @@ function cssFiles (opt) {
 function appFiles () {
   var files = [
     './.tmp/' + bower.name + '-templates.js',
+    './.tmp/src/app/**/*.js',
+    '!./.tmp/src/app/**/*_test.js',
     './src/app/**/*.js',
     '!./src/app/**/*_test.js'
   ];

@@ -35,12 +35,19 @@ gulp.task('default', function (done) {
       {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
     ]},
+    {type: 'confirm', name: 'coffee', message: 'Do you want to use CoffeScript in your app?', default: false},
     {type: 'confirm', name: 'example', message: 'Do you want to include a Todo List example in your app?', default: true}
   ],
   function (answers) {
     answers.nameDashed = _.slugify(answers.name);
     answers.modulename = _.camelize(answers.nameDashed);
     var files = [__dirname + '/templates/**'];
+    if (answers.coffee) {
+      files.push('!' + __dirname + '/templates/src/**/*.js')
+    }
+    else {
+      files.push('!' + __dirname + '/templates/src/**/*.coffee')
+    }
     if (!answers.example) {
       files.push('!' + __dirname + '/templates/src/app/todo/**');
     }
