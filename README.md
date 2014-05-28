@@ -1,6 +1,9 @@
 slush-angular
 ==============
 
+
+##Storebrand Development
+
 > A [slush](http://klei.github.io/slush/) generator for AngularJS using the [Google Angular App Structure Recommendations](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub)
 
 ## Installation
