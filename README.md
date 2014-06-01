@@ -112,6 +112,10 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ### V.0.4
 
+**0.4.1**:
+
+- Adding tests, using [`mock-gulp-dest`](https://github.com/slushjs/mock-gulp-dest)
+
 **0.4.0**:
 
 - Adding CoffeScript support ([#8](https://github.com/slushjs/slush-angular/issues/7) and [#9](https://github.com/slushjs/slush-angular/pull/9))
