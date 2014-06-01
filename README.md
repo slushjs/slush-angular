@@ -110,6 +110,13 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ## Changelog
 
+### V.0.4
+
+**0.4.0**:
+
+- Adding CoffeScript support ([#8](https://github.com/slushjs/slush-angular/issues/7) and [#9](https://github.com/slushjs/slush-angular/pull/9))
+- Updating all dependencies
+
 ### V.0.3
 
 **0.3.3**:
