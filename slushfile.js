@@ -21,9 +21,12 @@ var cssTypeData = {
   },
   'styl': {
     plugin: 'gulp-stylus',
-    pluginVersion: '^0.1.0',
-    pipeCommand: 'g.stylus({use: [\'nib\']})',
-    extension: 'styl'
+    pluginVersion: '^1.0.2',
+    pipeCommand: 'g.stylus({use: [require(\'nib\')()]})',
+    extension: 'styl',
+    extraDependencies: {
+      'nib': '^1.0.2'
+    }
   }
 };
 

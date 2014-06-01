@@ -6,49 +6,48 @@
     "start": "gulp watch",
     "test": "gulp test"
   },
-  "keywords": [
-    "klei-module"
-  ],
   "dependencies": {
   },
   "devDependencies": {
-    "gulp": "~3.5.5",
-    "gulp-util": "~2.2.14",
-    "gulp-jshint": "~1.5.0",
-    "gulp-load-plugins": "~0.4.0",
-    "jshint-stylish": "~0.1.5",
-    "gulp-rename": "~1.1.0",
-    "gulp-bower-files": "~0.1.11",
-    "gulp-angular-filesort": "~0.1.0",
-    "gulp-filter": "~0.3.1",
+    "gulp": "^3.7.0",
+    "gulp-util": "^2.2.14",
+    "gulp-jshint": "^1.6.1",
+    "gulp-load-plugins": "~0.5.1",
+    "jshint-stylish": "~0.2.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-bower-files": "~0.2.4",
+    "gulp-angular-filesort": "~0.1.1",
+    "gulp-filter": "~0.4.1",
     "lazypipe": "~0.2.1",
-    "tiny-lr": "~0.0.5",
     "gulp-cached": "~0.0.3",
     "gulp-embedlr": "~0.5.2",
-    "gulp-livereload": "~1.2.0",
-    "gulp-header": "~1.0.2",
+    "gulp-livereload": "^1.5.0",
+    "gulp-header": "^1.0.2",
     "gulp-inject": "~0.4.1",
-    "gulp-serve": "~0.1.1",
-    "gulp-concat": "~2.1.7",
-    "gulp-clean": "~0.2.4",
-    "<%= styleData.plugin %>": "<%= styleData.pluginVersion %>",<% if(coffee) {%>
-    "gulp-coffee": "~1.4.3",
-    <% } %>"gulp-minify-css": "~0.3.0",
-    "gulp-csslint": "~0.1.3",
-    "event-stream": "~3.1.0",
-    "sort-stream": "~1.0.0",
-    "streamqueue": "~0.0.5",
-    "gulp-uglify": "~0.2.1",
+    "gulp-serve": "~0.2.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-clean": "~0.3.0",
+    "<%= styleData.plugin %>": "<%= styleData.pluginVersion %>",<% if (styleData.extraDependencies) {
+      Object.keys(styleData.extraDependencies).map(function (name) { %>
+    "<%= name %>": "<%= styleData.extraDependencies[name] %>",<%
+      });
+    } %><% if (coffee) { %>
+    "gulp-coffee": "^1.4.3",<% } %>
+    "gulp-minify-css": "~0.3.4",
+    "gulp-csslint": "~0.1.4",
+    "event-stream": "^3.1.5",
+    "streamqueue": "~0.1.1",
+    "gulp-uglify": "~0.3.0",
     "gulp-htmlmin": "~0.1.2",
-    "gulp-ng-html2js": "~0.1.6",
-    "gulp-ngmin": "~0.1.2",
-    "gulp-karma": "~0.0.2",
+    "gulp-ng-html2js": "~0.1.7",
+    "gulp-ngmin": "~0.3.0",
+    "gulp-karma": "~0.0.4",
     "karma-chai": "~0.1.0",
-    "karma-mocha": "~0.1.1",
-    "karma-phantomjs-launcher": "~0.1.2",
+    "karma-mocha": "~0.1.3",
+    "karma-phantomjs-launcher": "~0.1.4",
     "karma-script-launcher": "~0.1.0",
-    "karma-chrome-launcher": "~0.1.2",
+    "karma-chrome-launcher": "~0.1.4",
     "karma-firefox-launcher": "~0.1.3",
-    "karma": "~0.10.9"
+    "karma": "~0.12.16"
   }
 }
