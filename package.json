@@ -4,7 +4,7 @@
   "description": "A slush generator for AngularJS using the Google Angular App Structure Recommendations",
   "main": "slushfile.js",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "NODE_ENV=test mocha -R spec test/*_test.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
   "dependencies": {
     "gulp": "~3.7.0",
     "gulp-template": "~0.1.1",
-    "gulp-install": "~0.1.1",
+    "gulp-install": "~0.1.4",
     "gulp-conflict": "~0.1.2",
     "underscore.string": "~2.3.3",
     "gulp-rename": "~1.2.0",
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "mock-gulp-dest": "~0.1.0"
   }
 }
