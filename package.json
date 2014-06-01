@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/klei/slush-angular"
+    "url": "git://github.com/slushjs/slush-angular"
   },
   "keywords": [
     "slushgenerator",
@@ -23,9 +23,9 @@
   "author": "Joakim Bengtson <joakim@klei.se>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/klei/slush-angular/issues"
+    "url": "https://github.com/slushjs/slush-angular/issues"
   },
-  "homepage": "https://github.com/klei/slush-angular",
+  "homepage": "https://github.com/slushjs/slush-angular",
   "dependencies": {
     "gulp": "~3.7.0",
     "gulp-template": "~0.1.1",
