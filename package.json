@@ -27,13 +27,13 @@
   },
   "homepage": "https://github.com/klei/slush-angular",
   "dependencies": {
-    "gulp": "~3.6.1",
+    "gulp": "~3.7.0",
     "gulp-template": "~0.1.1",
     "gulp-install": "~0.1.1",
-    "gulp-conflict": "~0.1.1",
+    "gulp-conflict": "~0.1.2",
     "underscore.string": "~2.3.3",
     "gulp-rename": "~1.2.0",
-    "inquirer": "~0.4.1"
+    "inquirer": "~0.5.1"
   },
   "devDependencies": {
     "chai": "*",
