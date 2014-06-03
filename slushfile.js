@@ -38,7 +38,7 @@ gulp.task('default', function (done) {
       {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
     ]},
-    {type: 'confirm', name: 'coffee', message: 'Do you want to use CoffeScript in your app?', default: false},
+    {type: 'confirm', name: 'coffee', message: 'Do you want to use CoffeeScript in your app?', default: false},
     {type: 'confirm', name: 'example', message: 'Do you want to include a Todo List example in your app?', default: true}
   ],
   function (answers) {
