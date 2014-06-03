@@ -110,52 +110,7 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ## Changelog
 
-### V.0.4
-
-**0.4.2**:
-
-- Fixing typo (See [#17](https://github.com/slushjs/slush-angular/pull/17))
-
-**0.4.1**:
-
-- Adding tests, using [`mock-gulp-dest`](https://github.com/slushjs/mock-gulp-dest)
-
-**0.4.0**:
-
-- Adding CoffeScript support ([#8](https://github.com/slushjs/slush-angular/issues/7) and [#9](https://github.com/slushjs/slush-angular/pull/9))
-- Updating all dependencies
-
-### V.0.3
-
-**0.3.3**:
-
-- Adding the `gulp karma-conf` task to be able to run `karma` without gulp ([#7](https://github.com/slushjs/slush-angular/issues/7))
-
-**0.3.2**:
-
-- Fixing jshint errors in newly generated angular app with stylus as CSS preprocessor
-
-**0.3.1**:
-
-- Explicitly set port 3000 ([#4](https://github.com/slushjs/slush-angular/pull/4))
-- Remove bad output in console
-- Update gulp to `3.6.1`
-
-**0.3.0**:
-
-- Adding Sass as CSS preprocessor alternative (Thanks to [@ajoslin](https://github.com/ajoslin)'s PR[#2](https://github.com/slushjs/slush-angular/pull/2))
-- Adding `.tmp/` to the generated project's .gitignore ([#3](https://github.com/slushjs/slush-angular/pull/3))
-
-### V.0.2
-
-**0.2.0**:
-
-- Using `gulp-angular-filesort` to sort app files correctly on injection/concatenation
-- Adding `.bowerrc` (see [#1](https://github.com/slushjs/slush-angular/pull/1))
-
-### V.0.1
-
-**0.1.0** - First version
+See [releases](https://github.com/slushjs/slush-angular/releases).
 
 ## License
 
