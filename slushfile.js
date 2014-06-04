@@ -11,19 +11,22 @@ var cssTypeData = {
     plugin: 'gulp-less',
     pluginVersion: '^1.2.3',
     pipeCommand: 'g.less()',
-    extension: 'less'
+    extension: 'less',
+    matchPattern: 'less'
   },
   'sass': {
     plugin: 'gulp-sass',
     pluginVersion: '^0.7.1',
     pipeCommand: 'g.sass()',
-    extension: 'scss'
+    extension: 'scss',
+    matchPattern: '{scss,sass}'
   },
   'styl': {
     plugin: 'gulp-stylus',
     pluginVersion: '^1.0.2',
     pipeCommand: 'g.stylus({use: [require(\'nib\')()]})',
     extension: 'styl',
+    matchPattern: 'styl',
     extraDependencies: {
       'nib': '^1.0.2'
     }

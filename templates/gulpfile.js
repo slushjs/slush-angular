@@ -41,8 +41,8 @@ gulp.task('clean-css', function () {
 
 gulp.task('styles', ['clean-css'], function () {
   return gulp.src([
-    './src/app/**/*.<%= styleData.extension %>',
-    '!./src/app/**/_*.<%= styleData.extension %>'
+    './src/app/**/*.<%= styleData.matchPattern %>',
+    '!./src/app/**/_*.<%= styleData.matchPattern %>'
   ])
     .pipe(<%= styleData.pipeCommand %>)
     .pipe(gulp.dest('./.tmp/css/'))
@@ -160,7 +160,7 @@ gulp.task('watch', ['statics', 'default'], function () {
   });
   gulp.watch('./src/app/index.html', ['index']);
   gulp.watch(['./src/app/**/*.html', '!./src/app/index.html'], ['templates']);
-  gulp.watch(['./src/app/**/*.<%= styleData.extension %>'], ['csslint']).on('change', function (evt) {
+  gulp.watch(['./src/app/**/*.<%= styleData.matchPattern %>'], ['csslint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
     }
