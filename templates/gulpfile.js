@@ -5,6 +5,8 @@ var gulp = require('gulp'),
     g = require('gulp-load-plugins')({lazy: false}),
     noop = g.util.noop,
     es = require('event-stream'),
+    bowerFiles = require('main-bower-files'),
+    rimraf = require('rimraf'),
     queue = require('streamqueue'),
     lazypipe = require('lazypipe'),
     stylish = require('jshint-stylish'),
@@ -35,8 +37,8 @@ gulp.task('jshint', function () {
 /**
  * CSS
  */
-gulp.task('clean-css', function () {
-  return gulp.src('./.tmp/css').pipe(g.clean());
+gulp.task('clean-css', function (done) {
+  rimraf('./.tmp/css', done);
 });
 
 gulp.task('styles', ['clean-css'], function () {
@@ -94,7 +96,7 @@ gulp.task('templates-dist', function () {
  * Vendors
  */
 gulp.task('vendors', function () {
-  var bowerStream = g.bowerFiles();
+  var bowerStream = gulp.src(bowerFiles());
   return es.merge(
     bowerStream.pipe(g.filter('**/*.css')).pipe(dist('css', 'vendors')),
     bowerStream.pipe(g.filter('**/*.js')).pipe(dist('js', 'vendors'))
@@ -110,7 +112,7 @@ gulp.task('build-all', ['styles', 'templates'<%if(coffee){%>, 'coffee'<%}%>], in
 function index () {
   var opt = {read: false};
   return gulp.src('./src/app/index.html')
-    .pipe(g.inject(g.bowerFiles(opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
+    .pipe(g.inject(gulp.src(bowerFiles(), opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
     .pipe(g.inject(es.merge(appFiles(), cssFiles(opt)), {ignorePath: ['.tmp', 'src/app']}))
     .pipe(gulp.dest('./src/app/'))
     .pipe(g.embedlr())
@@ -152,7 +154,7 @@ gulp.task('serve', ['watch']);
 gulp.task('watch', ['statics', 'default'], function () {
   isWatching = true;
   // Initiate livereload server:
-  g.livereload();
+  g.livereload.listen();
   gulp.watch('./src/app/**/*.js', ['jshint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
@@ -210,7 +212,7 @@ gulp.task('karma-conf', ['templates'], function () {
  */
 function testFiles() {
   return new queue({objectMode: true})
-    .queue(g.bowerFiles().pipe(g.filter('**/*.js')))
+    .queue(gulp.src(bowerFiles()).pipe(g.filter('**/*.js')))
     .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
     .queue(appFiles())
     .queue(gulp.src(['./src/app/**/*_test.js', './.tmp/src/app/**/*_test.js']))
