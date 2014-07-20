@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/slushjs/slush-angular",
   "dependencies": {
-    "gulp": "~3.7.0",
+    "gulp": "~3.8.6",
     "gulp-template": "~0.1.1",
     "gulp-install": "~0.1.4",
     "gulp-conflict": "~0.1.2",
