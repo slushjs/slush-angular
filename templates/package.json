@@ -40,7 +40,7 @@
     "gulp-uglify": "~0.3.0",
     "gulp-htmlmin": "~0.1.2",
     "gulp-ng-html2js": "~0.1.7",
-    "gulp-ngmin": "~0.3.0",
+    "gulp-ng-annotate": "~0.2.0",
     "gulp-karma": "~0.0.4",
     "karma-chai": "~0.1.0",
     "karma-mocha": "~0.1.3",

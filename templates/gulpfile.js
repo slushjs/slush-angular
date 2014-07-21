@@ -78,7 +78,7 @@ gulp.task('coffee', function () {
  * Scripts
  */
 gulp.task('scripts-dist', ['templates-dist'], function () {
-  return appFiles().pipe(dist('js', bower.name, {ngmin: true}));
+  return appFiles().pipe(dist('js', bower.name, {ngAnnotate: true}));
 });
 
 /**
@@ -276,9 +276,9 @@ function dist (ext, name, opt) {
   return lazypipe()
     .pipe(g.concat, name + '.' + ext)
     .pipe(gulp.dest, './dist')
-    .pipe(opt.ngmin ? g.ngmin : noop)
-    .pipe(opt.ngmin ? g.rename : noop, name + '.annotated.' + ext)
-    .pipe(opt.ngmin ? gulp.dest : noop, './dist')
+    .pipe(opt.ngAnnotate ? g.ngAnnotate : noop)
+    .pipe(opt.ngAnnotate ? g.rename : noop, name + '.annotated.' + ext)
+    .pipe(opt.ngAnnotate ? gulp.dest : noop, './dist')
     .pipe(ext === 'js' ? g.uglify : g.minifyCss)
     .pipe(g.rename, name + '.min.' + ext)
     .pipe(gulp.dest, './dist')();
