@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     lazypipe = require('lazypipe'),
     stylish = require('jshint-stylish'),
     bower = require('./bower'),
+	vinylFs = require('vinyl-fs'),
     isWatching = false;
 
 var htmlminOpts = {
@@ -98,7 +99,7 @@ gulp.task('templates-dist', function () {
 gulp.task('vendors', function () {
   var bowerStream = gulp.src(bowerFiles());
   return es.merge(
-    bowerStream.pipe(g.filter('**/*.css')).pipe(dist('css', 'vendors')),
+    vinylFs.src(['./bower_components/**/*.css', '!./bower_components/**/*.min.css']).pipe(dist('css', 'vendors')),
     bowerStream.pipe(g.filter('**/*.js')).pipe(dist('js', 'vendors'))
   );
 });
