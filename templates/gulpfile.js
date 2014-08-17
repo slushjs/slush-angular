@@ -155,10 +155,8 @@ gulp.task('watch', ['statics', 'default'], function () {
   isWatching = true;
   // Initiate livereload server:
   g.livereload.listen();
-  gulp.watch('./src/app/**/*.js', ['jshint']).on('change', function (evt) {
-    if (evt.type !== 'changed') {
-      gulp.start('index');
-    }
+  gulp.watch('./src/app/**/*.{js,coffee}', ['jshint', 'coffee']).on('change', function (evt) {
+    gulp.start('index');
   });
   gulp.watch('./src/app/index.html', ['index']);
   gulp.watch(['./src/app/**/*.html', '!./src/app/index.html'], ['templates']);
