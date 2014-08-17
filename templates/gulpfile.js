@@ -255,7 +255,7 @@ function templateFiles (opt) {
 function buildTemplates () {
   return lazypipe()
     .pipe(g.ngHtml2js, {
-      moduleName: bower.name + '-templates',
+      moduleName: bower.name,
       prefix: '/' + bower.name + '/',
       stripPrefix: '/src/app'
     })

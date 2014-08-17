@@ -1,8 +1,7 @@
 
 angular.module('<%= modulename %>', [
-  'ngRoute',
-  <% if (example) { %>'<%= modulename %>.todo',
-  <% } %>'<%= nameDashed %>-templates'
+  'ngRoute'<% if (example) { %>,
+  '<%= modulename %>.todo'<% } %>
 ])<% if (example) { %>
 .config(function ($routeProvider) {
   'use strict';
