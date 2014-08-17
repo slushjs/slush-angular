@@ -96,11 +96,17 @@ gulp.task('templates-dist', function () {
  * Vendors
  */
 gulp.task('vendors', function () {
-  var bowerStream = gulp.src(bowerFiles());
-  return es.merge(
-    bowerStream.pipe(g.filter('**/*.css')).pipe(dist('css', 'vendors')),
-    bowerStream.pipe(g.filter('**/*.js')).pipe(dist('js', 'vendors'))
-  );
+  var files = bowerFiles();
+  var vendorJs = fileTypeFilter(files, 'js');
+  var vendorCss = fileTypeFilter(files, 'css');
+  var q = new queue({objectMode: true});
+  if (vendorJs.length) {
+    q.queue(gulp.src(vendorJs).pipe(dist('js', 'vendors')));
+  }
+  if (vendorCss.length) {
+    q.queue(gulp.src(vendorCss).pipe(dist('css', 'vendors')));
+  }
+  return q.done();
 });
 
 /**
@@ -212,7 +218,7 @@ gulp.task('karma-conf', ['templates'], function () {
  */
 function testFiles() {
   return new queue({objectMode: true})
-    .queue(gulp.src(bowerFiles()).pipe(g.filter('**/*.js')))
+    .queue(gulp.src(fileTypeFilter(bowerFiles(), 'js')))
     .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
     .queue(appFiles())
     .queue(gulp.src(['./src/app/**/*_test.js', './.tmp/src/app/**/*_test.js']))
@@ -262,6 +268,18 @@ function buildTemplates () {
     .pipe(g.concat, bower.name + '-templates.js')
     .pipe(gulp.dest, './.tmp')
     .pipe(livereload)();
+}
+
+/**
+ * Filter an array of files according to file type
+ *
+ * @param {Array} files
+ * @param {String} extension
+ * @return {Array}
+ */
+function fileTypeFilter (files, extension) {
+  var regExp = new RegExp('\\.' + extension + '$');
+  return files.filter(regExp.test.bind(regExp));
 }
 
 /**

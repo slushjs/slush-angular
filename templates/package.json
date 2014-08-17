@@ -17,7 +17,6 @@
     "gulp-rename": "^1.2.0",
     "main-bower-files": "^1.0.1",
     "gulp-angular-filesort": "~0.1.1",
-    "gulp-filter": "~0.5.0",
     "lazypipe": "~0.2.1",
     "gulp-cached": "^1.0.1",
     "gulp-embedlr": "~0.5.2",
