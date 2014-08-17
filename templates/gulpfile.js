@@ -160,10 +160,13 @@ gulp.task('serve', ['watch']);
 gulp.task('watch', ['statics', 'default'], function () {
   isWatching = true;
   // Initiate livereload server:
-  g.livereload.listen();
-  gulp.watch('./src/app/**/*.js', ['jshint']).on('change', function (evt) {
+  g.livereload.listen();<% if (coffee) { %>
+  gulp.watch('./src/app/**/*.coffee', ['coffee']);<% } %>
+  gulp.watch('./<% if (coffee) { %>.tmp/<% } %>src/app/**/*.js', ['jshint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
+    } else {
+      g.livereload.changed(evt);
     }
   });
   gulp.watch('./src/app/index.html', ['index']);
@@ -171,6 +174,8 @@ gulp.task('watch', ['statics', 'default'], function () {
   gulp.watch(['./src/app/**/*.<%= styleData.extension %>'], ['csslint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
+    } else {
+      g.livereload.changed(evt);
     }
   });
 });
