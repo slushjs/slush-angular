@@ -9,7 +9,7 @@ slush-angular
 ```bash
 npm install -g slush
 git clone git@github.com:storebrand/slush-angular.git
-npm link .
+npm link
 ```
 
 to unlink
