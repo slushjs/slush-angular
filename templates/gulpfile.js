@@ -5,6 +5,8 @@ var gulp = require('gulp'),
     g = require('gulp-load-plugins')({lazy: false}),
     noop = g.util.noop,
     es = require('event-stream'),
+    bowerFiles = require('main-bower-files'),
+    rimraf = require('rimraf'),
     queue = require('streamqueue'),
     lazypipe = require('lazypipe'),
     stylish = require('jshint-stylish'),
@@ -35,8 +37,8 @@ gulp.task('jshint', function () {
 /**
  * CSS
  */
-gulp.task('clean-css', function () {
-  return gulp.src('./.tmp/css').pipe(g.clean());
+gulp.task('clean-css', function (done) {
+  rimraf('./.tmp/css', done);
 });
 
 gulp.task('styles', ['clean-css'], function () {
@@ -60,12 +62,23 @@ gulp.task('csslint', ['styles'], function () {
     .pipe(g.csslint('./.csslintrc'))
     .pipe(g.csslint.reporter());
 });
-
+<% if(coffee) { %>
+/**
+ * CoffeeScript
+ */
+gulp.task('coffee', function () {
+  return gulp.src([
+    './src/app/**/*.coffee'
+  ])
+    .pipe(g.coffee())
+    .pipe(gulp.dest('./.tmp/src/app'));
+});
+<% } %>
 /**
  * Scripts
  */
 gulp.task('scripts-dist', ['templates-dist'], function () {
-  return appFiles().pipe(dist('js', bower.name, {ngmin: true}));
+  return appFiles().pipe(dist('js', bower.name, {ngAnnotate: true}));
 });
 
 /**
@@ -83,23 +96,29 @@ gulp.task('templates-dist', function () {
  * Vendors
  */
 gulp.task('vendors', function () {
-  var bowerStream = g.bowerFiles();
-  return es.merge(
-    bowerStream.pipe(g.filter('**/*.css')).pipe(dist('css', 'vendors')),
-    bowerStream.pipe(g.filter('**/*.js')).pipe(dist('js', 'vendors'))
-  );
+  var files = bowerFiles();
+  var vendorJs = fileTypeFilter(files, 'js');
+  var vendorCss = fileTypeFilter(files, 'css');
+  var q = new queue({objectMode: true});
+  if (vendorJs.length) {
+    q.queue(gulp.src(vendorJs).pipe(dist('js', 'vendors')));
+  }
+  if (vendorCss.length) {
+    q.queue(gulp.src(vendorCss).pipe(dist('css', 'vendors')));
+  }
+  return q.done();
 });
 
 /**
  * Index
  */
 gulp.task('index', index);
-gulp.task('build-all', ['styles', 'templates'], index);
+gulp.task('build-all', ['styles', 'templates'<%if(coffee){%>, 'coffee'<%}%>], index);
 
 function index () {
   var opt = {read: false};
   return gulp.src('./src/app/index.html')
-    .pipe(g.inject(g.bowerFiles(opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
+    .pipe(g.inject(gulp.src(bowerFiles(), opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
     .pipe(g.inject(es.merge(appFiles(), cssFiles(opt)), {ignorePath: ['.tmp', 'src/app']}))
     .pipe(gulp.dest('./src/app/'))
     .pipe(g.embedlr())
@@ -131,7 +150,7 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
  */
 gulp.task('statics', g.serve({
   port: 3000,
-  root: ['./.tmp', './src/app', './bower_components']
+  root: ['./.tmp', './.tmp/src/app', './src/app', './bower_components']
 }));
 
 /**
@@ -141,10 +160,13 @@ gulp.task('serve', ['watch']);
 gulp.task('watch', ['statics', 'default'], function () {
   isWatching = true;
   // Initiate livereload server:
-  g.livereload();
-  gulp.watch('./src/app/**/*.js', ['jshint']).on('change', function (evt) {
+  g.livereload.listen();<% if (coffee) { %>
+  gulp.watch('./src/app/**/*.coffee', ['coffee']);<% } %>
+  gulp.watch('./<% if (coffee) { %>.tmp/<% } %>src/app/**/*.js', ['jshint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
+    } else {
+      g.livereload.changed(evt);
     }
   });
   gulp.watch('./src/app/index.html', ['index']);
@@ -152,6 +174,8 @@ gulp.task('watch', ['statics', 'default'], function () {
   gulp.watch(['./src/app/**/*.<%= styleData.extension %>'], ['csslint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
+    } else {
+      g.livereload.changed(evt);
     }
   });
 });
@@ -199,10 +223,10 @@ gulp.task('karma-conf', ['templates'], function () {
  */
 function testFiles() {
   return new queue({objectMode: true})
-    .queue(g.bowerFiles().pipe(g.filter('**/*.js')))
+    .queue(gulp.src(fileTypeFilter(bowerFiles(), 'js')))
     .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
     .queue(appFiles())
-    .queue(gulp.src('./src/app/**/*_test.js'))
+    .queue(gulp.src(['./src/app/**/*_test.js', './.tmp/src/app/**/*_test.js']))
     .done();
 }
 
@@ -219,6 +243,8 @@ function cssFiles (opt) {
 function appFiles () {
   var files = [
     './.tmp/' + bower.name + '-templates.js',
+    './.tmp/src/app/**/*.js',
+    '!./.tmp/src/app/**/*_test.js',
     './src/app/**/*.js',
     '!./src/app/**/*_test.js'
   ];
@@ -240,13 +266,25 @@ function templateFiles (opt) {
 function buildTemplates () {
   return lazypipe()
     .pipe(g.ngHtml2js, {
-      moduleName: bower.name + '-templates',
+      moduleName: bower.name,
       prefix: '/' + bower.name + '/',
       stripPrefix: '/src/app'
     })
     .pipe(g.concat, bower.name + '-templates.js')
     .pipe(gulp.dest, './.tmp')
     .pipe(livereload)();
+}
+
+/**
+ * Filter an array of files according to file type
+ *
+ * @param {Array} files
+ * @param {String} extension
+ * @return {Array}
+ */
+function fileTypeFilter (files, extension) {
+  var regExp = new RegExp('\\.' + extension + '$');
+  return files.filter(regExp.test.bind(regExp));
 }
 
 /**
@@ -261,9 +299,9 @@ function dist (ext, name, opt) {
   return lazypipe()
     .pipe(g.concat, name + '.' + ext)
     .pipe(gulp.dest, './dist')
-    .pipe(opt.ngmin ? g.ngmin : noop)
-    .pipe(opt.ngmin ? g.rename : noop, name + '.annotated.' + ext)
-    .pipe(opt.ngmin ? gulp.dest : noop, './dist')
+    .pipe(opt.ngAnnotate ? g.ngAnnotate : noop)
+    .pipe(opt.ngAnnotate ? g.rename : noop, name + '.annotated.' + ext)
+    .pipe(opt.ngAnnotate ? gulp.dest : noop, './dist')
     .pipe(ext === 'js' ? g.uglify : g.minifyCss)
     .pipe(g.rename, name + '.min.' + ext)
     .pipe(gulp.dest, './dist')();

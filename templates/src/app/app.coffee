@@ -1,16 +1,13 @@
-
 angular.module('<%= modulename %>', [
-  'ngRoute'<% if (example) { %>,
+  'ngRoute'<% if (example) { %>
   '<%= modulename %>.todo'<% } %>
 ])<% if (example) { %>
-.config(function ($routeProvider) {
-  'use strict';
+.config ($routeProvider) ->
+  'use strict'
   $routeProvider
-    .when('/todo', {
-      controller: 'TodoCtrl',
+    .when '/todo',
+      controller: 'TodoCtrl'
       templateUrl: '/<%= nameDashed %>/todo/todo.html'
-    })
-    .otherwise({
+    .otherwise
       redirectTo: '/todo'
-    });
-})<% } %>;
+<% } %>

@@ -1,14 +1,14 @@
 {
   "name": "slush-angular",
-  "version": "0.3.3",
+  "version": "0.4.5",
   "description": "A slush generator for AngularJS using the Google Angular App Structure Recommendations",
   "main": "slushfile.js",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "NODE_ENV=test mocha -R spec test/*_test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/klei/slush-angular"
+    "url": "git://github.com/slushjs/slush-angular"
   },
   "keywords": [
     "slushgenerator",
@@ -23,16 +23,21 @@
   "author": "Joakim Bengtson <joakim@klei.se>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/klei/slush-angular/issues"
+    "url": "https://github.com/slushjs/slush-angular/issues"
   },
-  "homepage": "https://github.com/klei/slush-angular",
+  "homepage": "https://github.com/slushjs/slush-angular",
   "dependencies": {
-    "gulp": "~3.6.1",
+    "gulp": "~3.8.6",
     "gulp-template": "~0.1.1",
-    "gulp-install": "~0.1.1",
-    "gulp-conflict": "~0.1.1",
+    "gulp-install": "~0.2.0",
+    "gulp-conflict": "~0.2.0",
     "underscore.string": "~2.3.3",
     "gulp-rename": "~1.2.0",
-    "inquirer": "~0.4.1"
+    "inquirer": "~0.5.1"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "mock-gulp-dest": "~0.1.0"
   }
 }

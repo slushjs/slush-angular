@@ -21,9 +21,12 @@ var cssTypeData = {
   },
   'styl': {
     plugin: 'gulp-stylus',
-    pluginVersion: '^0.1.0',
-    pipeCommand: 'g.stylus({use: [\'nib\']})',
-    extension: 'styl'
+    pluginVersion: '^1.0.2',
+    pipeCommand: 'g.stylus({use: [require(\'nib\')()]})',
+    extension: 'styl',
+    extraDependencies: {
+      'nib': '^1.0.2'
+    }
   }
 };
 
@@ -35,12 +38,19 @@ gulp.task('default', function (done) {
       {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
     ]},
+    {type: 'confirm', name: 'coffee', message: 'Do you want to use CoffeeScript in your app?', default: false},
     {type: 'confirm', name: 'example', message: 'Do you want to include a Todo List example in your app?', default: true}
   ],
   function (answers) {
     answers.nameDashed = _.slugify(answers.name);
     answers.modulename = _.camelize(answers.nameDashed);
     var files = [__dirname + '/templates/**'];
+    if (answers.coffee) {
+      files.push('!' + __dirname + '/templates/src/**/*.js')
+    }
+    else {
+      files.push('!' + __dirname + '/templates/src/**/*.coffee')
+    }
     if (!answers.example) {
       files.push('!' + __dirname + '/templates/src/app/todo/**');
     }
@@ -57,7 +67,7 @@ gulp.task('default', function (done) {
       .pipe(conflict('./'))
       .pipe(gulp.dest('./'))
       .pipe(install())
-      .on('end', function () {
+      .on('finish', function () {
         done();
       });
   });

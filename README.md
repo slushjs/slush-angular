@@ -1,7 +1,7 @@
 slush-angular
 ==============
 
-> A [slush](http://klei.github.io/slush/) generator for AngularJS using the [Google Angular App Structure Recommendations](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub)
+> A [slush](http://slushjs.github.io) generator for AngularJS using the [Google Angular App Structure Recommendations](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub)
 
 
 ## Storebrand Development Instructions
@@ -125,37 +125,7 @@ Now you have a `./dist` folder with all your scripts and stylesheets concatenate
 
 ## Changelog
 
-### V.0.3
-
-**0.3.3**:
-
-- Adding the `gulp karma-conf` task to be able to run `karma` without gulp ([#7](https://github.com/klei/slush-angular/issues/7))
-
-**0.3.2**:
-
-- Fixing jshint errors in newly generated angular app with stylus as CSS preprocessor
-
-**0.3.1**:
-
-- Explicitly set port 3000 ([#4](https://github.com/klei/slush-angular/pull/4))
-- Remove bad output in console
-- Update gulp to `3.6.1`
-
-**0.3.0**:
-
-- Adding Sass as CSS preprocessor alternative (Thanks to [@ajoslin](https://github.com/ajoslin)'s PR[#2](https://github.com/klei/slush-angular/pull/2))
-- Adding `.tmp/` to the generated project's .gitignore ([#3](https://github.com/klei/slush-angular/pull/3))
-
-### V.0.2
-
-**0.2.0**:
-
-- Using `gulp-angular-filesort` to sort app files correctly on injection/concatenation
-- Adding `.bowerrc` (see [#1](https://github.com/klei/slush-angular/pull/1))
-
-### V.0.1
-
-**0.1.0** - First version
+See [releases](https://github.com/slushjs/slush-angular/releases).
 
 ## License
 
