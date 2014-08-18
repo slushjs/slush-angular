@@ -1,6 +1,15 @@
 <%= name %>
 ============
 
+## Setup
+
+To setup run:
+
+```bash
+npm install
+bower install
+```
+
 ## Development
 
 To start developing in the project run:
@@ -9,9 +18,11 @@ To start developing in the project run:
 gulp serve
 ```
 
-Then head to `http://localhost:3000` in your browser.
+Then head to `http://localhost:9000` in your browser.
 
 The `serve` tasks starts a static file server, which serves the AngularJS application, and a watch task which watches all files for changes and lints, builds and injects them into the index.html accordingly.
+
+Use `serve:record` to record responses from the backend. Use `serve:mock` to playback responses from the backend.
 
 ## Tests
 
