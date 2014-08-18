@@ -1,9 +1,10 @@
 
 angular.module('<%= modulename %>', [
-  'ngRoute'<% if (example) { %>,
+  'ngRoute',
+  'restangular'<% if (example) { %>,
   '<%= modulename %>.todo'<% } %>
 ])<% if (example) { %>
-.config(function ($routeProvider) {
+.config(function ($routeProvider, RestangularProvider) {
   'use strict';
   $routeProvider
     .when('/todo', {
@@ -13,4 +14,6 @@ angular.module('<%= modulename %>', [
     .otherwise({
       redirectTo: '/todo'
     });
+
+  RestangularProvider.setBaseUrl('/api');
 })<% } %>;
