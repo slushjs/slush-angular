@@ -1,0 +1,29 @@
+{
+    "server": {
+        "staticRoot": [
+            "./.tmp", "./.tmp/src/app", "./src/app", "./bower_components"
+        ],
+        "port": 9000
+    },
+    "httpHeaders": {
+        "SM_ACTIVEROLE": "internal",
+        "SM_USERDN": "xxxxxxxxxxx",
+        "SM_DPA": "stb-internal-life^stb-internal-bank^stb-internal-capital^stb-internal-health^stb-internal-pensionfunds",
+        "ClientId": "dummyClientId"
+    },
+    "prismOptions": {
+        "name": "api",
+        "mode": "proxy",
+        "context": "/api",
+        "host": "localhost",
+        "port": 10000,
+        "https": false,
+        "changeOrigin": false,
+        "delay": 0,
+        "rewrite": {}
+    },
+    "proxyRoutes": [
+        {"from": "/api", "to": "https://www2.storebrand.no/api"},
+        {"from": "/api/open/orders", "to": "http://localhost:55720/order-rest-api/open/orders"}
+    ]
+}
