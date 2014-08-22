@@ -256,7 +256,11 @@ function appFiles () {
  * All AngularJS templates/partials as a stream
  */
 function templateFiles (opt) {
-  return gulp.src(['./src/app/**/*.html', '!./src/app/index.html'], opt)
+  return gulp.src([
+    './src/app/**/*.html',
+    './bower_components/**/*.html',
+    '!./src/app/index.html',
+    ], opt)
     .pipe(opt && opt.min ? g.htmlmin(htmlminOpts) : noop());
 }
 
