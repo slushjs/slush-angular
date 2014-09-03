@@ -171,7 +171,7 @@ gulp.task('serve:proxy', ['watch'], function() {
 gulp.task('watch', ['default'], function () {
   isWatching = true;
   // Initiate livereload server:
-  g.livereload.listen();<% if (coffee) { %>
+  g.livereload.listen(Math.round(Math.random() * 10000));;<% if (coffee) { %>
   gulp.watch('./src/app/**/*.coffee', ['coffee']);<% } %>
   gulp.watch('./<% if (coffee) { %>.tmp/<% } %>src/app/**/*.js', ['jshint']).on('change', function (evt) {
     if (evt.type !== 'changed') {
