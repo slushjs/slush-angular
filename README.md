@@ -17,6 +17,11 @@ Remember to install `slush` globally as well, if you haven't already:
 npm install -g slush
 ```
 
+You'll also need to have bower installed for a smooth installation
+```bash
+npm install -g bower
+```
+
 ## Usage
 
 Create a new folder for your project:
