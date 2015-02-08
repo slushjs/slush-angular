@@ -11,6 +11,12 @@ var gulp = require('gulp'),
     lazypipe = require('lazypipe'),
     stylish = require('jshint-stylish'),
     bower = require('./bower'),
+    <%if(middleware){%>
+    proxy = require('proxy-middleware'),
+    url = require('url'),
+    connect = require('gulp-connect'),
+    _ = require('lodash'),
+    <%}%>
     isWatching = false;
 
 var htmlminOpts = {
@@ -20,6 +26,19 @@ var htmlminOpts = {
   collapseBooleanAttributes: true,
   removeRedundantAttributes: true
 };
+
+
+<%if(middleware){%>
+  //Configure your proxy for integrating with services
+  var proxyOptions = _.extend(url.parse('http://demo-venkatvp.rhcloud.com/services'), {
+    route: '/services',
+      headers: {
+        'Origin': 'http://yourdomain.com',
+        'Access-Control-Request-Method': 'GET',
+        'Access-Control-Request-Headers': 'X-Custom-Header'
+      }
+  });
+<%}%>
 
 /**
  * JS Hint
@@ -145,6 +164,7 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
     .pipe(gulp.dest('./dist/'));
 });
 
+<%if(!middleware){%>
 /**
  * Static file server
  */
@@ -152,7 +172,6 @@ gulp.task('statics', g.serve({
   port: 3000,
   root: ['./.tmp', './.tmp/src/app', './src/app', './bower_components']
 }));
-
 /**
  * Watch
  */
@@ -179,6 +198,37 @@ gulp.task('watch', ['statics', 'default'], function () {
     }
   });
 });
+<%} else {%>
+/**
+* connect server with middleware
+*/
+gulp.task('connect', function() {
+    connect.server({
+        root: ['./.tmp', './.tmp/src/app', './src/app', './bower_components'],
+        port: 3000,
+        livereload: true,
+        middleware: function() {
+            return [(function() {
+                return proxy(proxyOptions);
+            })()];
+        }
+    });
+});
+/**
+ * Watch
+ */
+gulp.task('serve', ['watch']);
+gulp.task('watch', ['connect', 'default'], function() {
+    isWatching = true;
+    // Initiate livereload server:
+    <% if (coffee) { %>
+    gulp.watch('./src/app/**/*.coffee', ['coffee']);<% } %>
+    gulp.watch('./<% if (coffee) { %>.tmp/<% } %>src/app/**/*.js', ['jshint']);
+    gulp.watch('./src/app/index.html', ['index']);
+    gulp.watch(['./src/app/**/*.html', '!./src/app/index.html'], ['templates']);
+    gulp.watch(['./src/app/**/*.less'], ['csslint']);
+});
+<%} %>
 
 /**
  * Default task

@@ -38,6 +38,7 @@ gulp.task('default', function (done) {
       {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
     ]},
+    {type: 'confirm', name: 'middleware', message: 'Do you want to use middleware for proxy support? If you choose Yes, then the liverelead may not work.', default: false},
     {type: 'confirm', name: 'coffee', message: 'Do you want to use CoffeeScript in your app?', default: false},
     {type: 'confirm', name: 'example', message: 'Do you want to include a Todo List example in your app?', default: true}
   ],
