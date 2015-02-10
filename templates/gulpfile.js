@@ -360,11 +360,15 @@ function dist (ext, name, opt) {
 /**
  * Livereload (or noop if not run by watch)
  */
-function livereload () {
-  return lazypipe()
-    .pipe(isWatching ? g.livereload : noop)();
+function livereload() { <%
+    if (middleware) { %>
+        return lazypipe()
+            .pipe(isWatching ? connect.reload : noop)(); <%
+    } else { %>
+        return lazypipe()
+            .pipe(isWatching ? g.livereload : noop)(); <%
+    } %>
 }
-
 /**
  * Jshint with stylish reporter
  */
