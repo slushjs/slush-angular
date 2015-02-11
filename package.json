@@ -33,7 +33,8 @@
     "gulp-conflict": "~0.2.0",
     "underscore.string": "~2.3.3",
     "gulp-rename": "~1.2.0",
-    "inquirer": "~0.5.1"
+    "inquirer": "~0.5.1",
+    "gulp-load-tasks": "^0.8.3"
   },
   "devDependencies": {
     "chai": "*",
