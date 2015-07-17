@@ -8,7 +8,7 @@ angular.module('<%= modulename %>', [
   $routeProvider
     .when('/todo', {
       controller: 'TodoCtrl',
-      templateUrl: '/<%= nameDashed %>/todo/todo.html'
+      templateUrl: 'todo/todo.html'
     })
     .otherwise({
       redirectTo: '/todo'
