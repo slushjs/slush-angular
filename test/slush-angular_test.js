@@ -108,6 +108,35 @@ describe('slush-angular', function() {
       });
     });
 
+    describe('Middleware Example', function () {
+
+      it('should generate template with middleware and LESS', function (done) {
+        mockPrompt({name: 'module', csstype: 'less', example: true, middleware : true});
+
+        gulp.start('default').once('stop', function () {
+          mockGulpDest.assertDestContains([
+            'src/app/app.less',
+            'src/app/styles/_base.less',
+            'src/app/todo/todo.less'
+          ]);
+          done();
+        });
+      });
+
+      it('should generate template with middleware and sass', function (done) {
+        mockPrompt({name: 'module', csstype: 'sass', example: true, middleware : true});
+
+        gulp.start('default').once('stop', function () {
+          mockGulpDest.assertDestContains([
+            'src/app/app.scss',
+            'src/app/styles/_base.scss',
+            'src/app/todo/todo.scss'
+          ]);
+          done();
+        });
+      });
+    });
+
     describe('Todo example', function () {
       it('should not add any todo example files by default', function (done) {
         mockPrompt({name: 'module', example: false});
