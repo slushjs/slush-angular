@@ -44,7 +44,9 @@ gulp.task('clean-css', function (done) {
 gulp.task('styles', ['clean-css'], function () {
   return gulp.src([
     './src/app/**/*.<%= styleData.extension %>',
-    '!./src/app/**/_*.<%= styleData.extension %>'
+    '!./src/app/**/_*.<%= styleData.extension %>',
+    './bower_components/**/*.<%= styleData.extension %>',
+    '!./bower_components/**/_*.<%= styleData.extension %>'
   ])
     .pipe(<%= styleData.pipeCommand %>)
     .pipe(gulp.dest('./.tmp/css/'))
