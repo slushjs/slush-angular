@@ -1,20 +1,68 @@
 <!DOCTYPE html>
 <html ng-app="<%= modulename %>">
   <head>
-    <meta charset="utf-8"/>
     <title><%= modulename %></title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="./stb-webmanual/css/stb-main.css">
+    <link rel="stylesheet" type="text/css" href="./stb-webmanual/css/yamm.css">
+    <link rel="stylesheet" type="text/css" href="./stb-webmanual/fonts/font-awesome-4.1.0/css/font-awesome.min.css">
+
     <!-- inject:vendor:css -->
     <!-- endinject -->
     <!-- inject:css -->
     <!-- endinject -->
   </head>
   <body>
-    <h1><%= modulename %></h1>
-    <h2>Your new AngularJS app is now ready...</h2>
-    <ng-view></ng-view>
+
+    <!-- Start of page contents -->
+    <div class="container">
+        <div class="row top-margin-30-mdlg">
+            <div class="col-md-12">
+                <div class="stb-banner">
+                    <h1 class="stb-font">Yet another application</h1>
+                    <h3>Based on the awesome Storebrand slush-angular js archetype</h3>
+                    <p>
+                      Refer to the <a href="http://elements.storebrand.no/storebrand.ny/index.html">web manual</a> for guidelines about how to shape your content.
+                    </p>
+
+                    <h3>Does this page look dull and un-Storebrandy?</h3>
+                    <p>
+                       Make sure you have a compiled css of the storebrand styles in your <span><code>/bower_components/stb-webmanual/css</code></span> folder.
+                      <pre>
+                      $> bower install
+                      $> cd bower_components/stb-webmanual/less
+                      $> lessc stb-main.less > ../css/stb-main.css
+                      </pre>
+                    </p>
+                    <h3>Using REST APIs? (of course you are)</h3>
+                    <p>
+                      Refer to <a href="https://github.com/mgonto/restangular">Restangular</a> for a nice alternative to the standard angular <code>$resource</code> service.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-view="">
+    </div>
+    <!-- End of page contents -->
+
     <!-- inject:vendor:js -->
     <!-- endinject -->
     <!-- inject:js -->
     <!-- endinject -->
+
+    <script type="text/javascript" src="./stb-webmanual/js/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./stb-webmanual/js/dist/jquery.color-2.1.2.min.js"></script>
+    <script type="text/javascript" src="./stb-webmanual/js/src/jquery.eqheight.js"></script>
+    <script type="text/javascript" src="./stb-webmanual/js/dist/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./stb-webmanual/js/extendedsearch.js"></script>
+    <script type="text/javascript" src="./stb-webmanual/js/dist/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="./stb-webmanual/js/dist/stb-page-padding.js"></script>
+
   </body>
 </html>

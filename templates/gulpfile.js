@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     lazypipe = require('lazypipe'),
     stylish = require('jshint-stylish'),
     bower = require('./bower'),
+    stbProxy = require('gulp-stb-proxy'),
     isWatching = false;
 
 var htmlminOpts = {
@@ -146,18 +147,28 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
 });
 
 /**
- * Static file server
+ * Serve
  */
-gulp.task('statics', g.serve({
-  port: 3000,
-  root: ['./.tmp', './.tmp/src/app', './src/app', './bower_components']
-}));
+gulp.task('serve', ['watch'], function() {
+  stbProxy.startServer('proxy');
+});
+
+gulp.task('serve:mock', ['watch'], function() {
+  stbProxy.startServer('mock');
+});
+
+gulp.task('serve:record', ['watch'], function() {
+  stbProxy.startServer('record');
+});
+
+gulp.task('serve:proxy', ['watch'], function() {
+  stbProxy.startServer('proxy');
+});
 
 /**
  * Watch
  */
-gulp.task('serve', ['watch']);
-gulp.task('watch', ['statics', 'default'], function () {
+gulp.task('watch', ['default'], function () {
   isWatching = true;
   // Initiate livereload server:
   g.livereload.listen();<% if (coffee) { %>
