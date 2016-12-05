@@ -32,8 +32,8 @@ var cssTypeData = {
 
 gulp.task('default', function (done) {
   inquirer.prompt([
-    {type: 'input', name: 'name', message: 'What do you want to name your AngularJS app?', default: getNameProposal()},
-    {type: 'list', name: 'csstype', message: 'What CSS preprocessor do you want to use?', default: 'styl', choices: [
+    {type: 'input', name: 'name', message: 'What do you want to name your Stb AngularJS app?', default: getNameProposal()},
+    {type: 'list', name: 'csstype', message: 'What CSS preprocessor do you want to use?', default: 'less', choices: [
       {name: 'Stylus', value: 'styl'},
       {name: 'LESS', value: 'less'},
       {name: 'Sass', value: 'sass'}
